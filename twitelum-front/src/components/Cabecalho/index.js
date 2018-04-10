@@ -1,0 +1,23 @@
+import React, { Component } from 'react'
+import NavMenu from '../NavMenu'
+import './cabecalho.css'
+
+
+class Cabecalho extends Component {
+
+    render() {
+        
+        return (
+            <header className="cabecalho">
+                <div className="cabecalho__container container">
+                    <h1 className="cabecalho__logo">
+                        <a href="">Twitelum</a>
+                    </h1>
+                    <NavMenu usuario="shirleypaz"/>
+                </div>
+            </header>
+        )
+    }
+}
+
+export default Cabecalho
