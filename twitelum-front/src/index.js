@@ -12,10 +12,16 @@ import './assets/css/notificacao.css'
 import './assets/css/novoTweet.css'
 // import './index.css';
 
-
-import App from './App';
-import LoginPage from './pages/LoginPage'
 import registerServiceWorker from './registerServiceWorker';
 
-ReactDOM.render(<App />, document.getElementById('root'));
+//Configuração do roteamento
+import { BrowserRouter } from 'react-router-dom'
+import Routes from './routes'
+
+
+ReactDOM.render(
+    <BrowserRouter>
+        <Routes/>
+    </BrowserRouter>
+    , document.getElementById('root'));
 registerServiceWorker();
