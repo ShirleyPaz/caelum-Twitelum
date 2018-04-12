@@ -6,6 +6,10 @@ import './loginPage.css'
 
 class LoginPage extends Component {
 
+    state = {
+        mensagem: ''
+    }
+
     fazLogin = (event) => {
         event.preventDefault()
         const login = this.inputLogin.value
@@ -19,21 +23,23 @@ class LoginPage extends Component {
             method: 'post',
             body: JSON.stringify(infosDoUsuario)
         })
-        .then((response) => {
-            if(!response.ok) {
-                throw response;
-            }
-            return response.json()
-        })
-        .then((responseEmJSON) => {
-            localStorage.setItem('TOKEN', responseEmJSON.token)
-            this.props.history.push('/')
-        })
-        .catch((responseError) => {
-            responseError.json().then((response) => {
-                console.log(response)
+            .then((response) => {
+                if (!response.ok) {
+                    throw response;
+                }
+                return response.json()
             })
-        })
+            .then((responseEmJSON) => {
+                localStorage.setItem('TOKEN', responseEmJSON.token)
+                this.props.history.push('/')
+            })
+            .catch((responseError) => {
+                responseError.json().then((response) => {
+                    this.setState({
+                        mensagem: response.message
+                    })
+                })
+            })
     }
 
     render() {
@@ -71,6 +77,7 @@ class LoginPage extends Component {
                                     Logar
                                 </button>
                             </div>
+                            <center>{this.state.mensagem}</center>
                         </form>
                     </Widget>
                 </div>

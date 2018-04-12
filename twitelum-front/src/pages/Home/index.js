@@ -75,8 +75,8 @@ class App extends Component {
                         <Widget>
                             <div className="tweetsArea">
                                 {this.state.tweets.length === 0 ?
-                                "Compartilhe seu primeiro tweet" :           
-                                this.state.tweets.map(
+                                <center>"Compartilhe seu primeiro tweet"</center> : ""}          
+                                {this.state.tweets.map(
                                     (tweet, index) => {
                                        return <Tweet
                                             key={tweet}
