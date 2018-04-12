@@ -6,18 +6,14 @@ import { Switch, Route } from 'react-router-dom'
 import Home from './pages/Home';
 import LoginPage from './pages/LoginPage'
 
-class Routes extends Component {
-
-    render() {
-        return (
-            <Switch> {/* Ele pega a URL e faz os ifs malditos */}
-                <Route path="/" component={Home} exact />
-                <Route path="/login" component={LoginPage} />
-                <Route path="*" component={() => <div>Página 404</div>} />
-            </Switch>
-            )
-}
-        
+const Routes = () => {
+    return (
+    <Switch> {/* Ele pega a URL e faz os ifs malditos */}
+        <Route path="/" component={Home} exact />
+        <Route path="/login" component={LoginPage} />
+        <Route path="*" component={() => <div>Página 404</div>} />
+    </Switch>
+    )
 }
 
 export default Routes

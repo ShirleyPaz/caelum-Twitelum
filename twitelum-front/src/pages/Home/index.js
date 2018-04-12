@@ -74,7 +74,9 @@ class App extends Component {
                     <Dashboard posicao="centro">
                         <Widget>
                             <div className="tweetsArea">
-                                {this.state.tweets.map(
+                                {this.state.tweets.length === 0 ?
+                                "Compartilhe seu primeiro tweet" :           
+                                this.state.tweets.map(
                                     (tweet, index) => {
                                        return <Tweet
                                             key={tweet}
