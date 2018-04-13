@@ -17,7 +17,7 @@ class App extends Component {
     }
 
     componentDidMount() {
-        fetch('http://localhost:3001/tweets')
+        fetch(`http://localhost:3001/tweets?X-AUTH-TOKEN=${localStorage.getItem('TOKEN')}`)
             .then(response => response.json())
             .then((tweetsDoServidor => {
                 this.setState(
@@ -51,6 +51,7 @@ class App extends Component {
                         novoTweet: ''
                     }
                 )
+                console.log(respostaPronta)
             })
     }
 }
@@ -106,7 +107,7 @@ render() {
                             {this.state.tweets.map(
                                 (tweet, index) => {
                                     return <Tweet
-                                        key={tweet + index}
+                                        key={tweet._id}
                                         texto={tweet.conteudo}
                                         tweetInfo={tweet} />
                                 })
