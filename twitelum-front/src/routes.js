@@ -16,16 +16,17 @@ function estaAutenticado() {
 
 class PrivateRoute extends Component {
     render() {
+        const Component = this.props.component
+        const props = this.props
+
         if (estaAutenticado()) {
-            return (
-                <Route {...this.props}/>
-            )
+            return (<Route render={() => <Component {...props} />}/>)
         } else {
             return (
                 <Redirect to='/login' />
             )
         }
-        
+
     }
 }
 

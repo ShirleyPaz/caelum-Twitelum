@@ -8,6 +8,14 @@
         "senha": "123456"
     },
     {
+        "login": "shirleypaz",
+        "nome": "Shirley",
+        "sobrenome": "Paz",
+        "foto": "https://pbs.twimg.com/profile_images/1100660981/025_400x400.jpg",
+        "email": "shirley.paz@caelum.com.br",
+        "senha": "123456"
+    },
+    {
         "login": "artdiniz",
         "nome": "Artur",
         "sobrenome": "Diniz",

@@ -28,6 +28,7 @@ class LoginPage extends Component {
                     throw response;
                 }
                 return response.json()
+                
             })
             .then((responseEmJSON) => {
                 localStorage.setItem('TOKEN', responseEmJSON.token)
