@@ -22,8 +22,8 @@ class Tweet extends Component {
             }`, {
                 method: 'POST',
             })
-            .then( response => response.json())
-            .then( response => console.log(response));
+            .then(response => response.json())
+            .then(response => console.log(response));
     }
 
     render() {
@@ -50,6 +50,9 @@ class Tweet extends Component {
                         </svg>
                         {this.state.totalLikes}
                     </button>
+                    {this.props.tweetInfo.removivel &&
+                        <button className="btn btn--blue btn--remove">x</button>
+                    }
                 </footer>
             </article>
         )
