@@ -58,7 +58,7 @@ class App extends Component {
 
 //evita que dê refresh no submit - ok
 //resetar o valor do novo tweet
-// pegar o value do input - ok
+// pegar o value do input - okpara 
 // criar uma lista de inputs - ok
 //jogar o valor do tweet na lista -ok
 //incluir no corpo do widget com map - ok
