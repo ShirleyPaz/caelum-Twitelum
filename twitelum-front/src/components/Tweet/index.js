@@ -30,7 +30,7 @@ class Tweet extends Component {
     render() {
 
         return (
-            <article className="tweet">
+            <article className="tweet" onClick={this.props.handleModal}>
                 <div className="tweet__cabecalho">
                     <img className="tweet__fotoUsuario" src={this.props.tweetInfo.usuario.foto} alt="" />
                     <span className="tweet__nomeUsuario">{this.props.tweetInfo.usuario.nome}</span>
@@ -65,7 +65,7 @@ Tweet.propTypes = {
     texto: PropTypes.string.isRequired,
     tweetInfo: PropTypes.shape({
         _id: PropTypes.string.isRequired,
-        likeado: PropTypes.bool.isRequired,
+        likeado: PropTypes.bool,
         totalLikes: PropTypes.number.isRequired,
         removivel: PropTypes.bool,
         usuario: PropTypes.shape({

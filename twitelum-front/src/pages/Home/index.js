@@ -12,6 +12,9 @@ class App extends Component {
         this.state = {
             novoTweet: '',
             tweets: [],
+            tweetAtivo: {
+                usuario: {}
+            }
         }
         this.adicionaTweet = this.adicionaTweet.bind(this)
     }
@@ -67,12 +70,23 @@ class App extends Component {
             .then(response => {
                 return response.json()
             })
-            
+
         const tweetAtualizados = this.state.tweets.filter(tweetAtual => tweetAtual._id !== idDoTweet)
 
         this.setState({
             tweets: tweetAtualizados
 
+        })
+    }
+
+    abreModalTweet = (idDoTweet) => {
+        // pegar o tweet correto no array de tweets
+        const tweetAtivo = this.state
+            .tweets.
+            find(tweetAtual => tweetAtual._id === idDoTweet)
+
+        this.setState({
+            tweetAtivo: tweetAtivo
         })
     }
 
@@ -121,6 +135,7 @@ class App extends Component {
                                         return <Tweet
                                             key={tweet._id}
                                             removeHandler={() => this.removeTweet(tweet._id)}
+                                            handleModal={() => this.abreModalTweet(tweet._id)}
                                             texto={tweet.conteudo}
                                             tweetInfo={tweet}
                                         />
@@ -130,6 +145,13 @@ class App extends Component {
                         </Widget>
                     </Dashboard>
                 </div>
+                {this.state.tweetAtivo._id  &&
+                <Tweet
+                    removeHandler={() => this.removeTweet(this.state.tweetAtivo._id)}
+                    handleModal={() => this.abreModalTweet(this.state.tweetAtivo._id)}
+                    texto={this.state.tweetAtivo.conteudo}
+                    tweetInfo={this.state.tweetAtivo}
+                />}
             </Fragment>
         );
     }
