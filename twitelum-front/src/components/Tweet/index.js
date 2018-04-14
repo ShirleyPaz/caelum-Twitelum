@@ -51,7 +51,7 @@ class Tweet extends Component {
                         {this.state.totalLikes}
                     </button>
                     {this.props.tweetInfo.removivel &&
-                        <button className="btn btn--blue btn--remove">x</button>
+                        <button onClick={this.props.removeHandler} className="btn btn--blue btn--remove">x</button>
                     }
                 </footer>
             </article>
