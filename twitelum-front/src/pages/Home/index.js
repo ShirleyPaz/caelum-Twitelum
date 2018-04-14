@@ -67,17 +67,14 @@ class App extends Component {
             .then(response => {
                 return response.json()
             })
-            .then(respostaPronta => {
-                const tweetAtualizados = this.state.tweets.filter(tweetAtual => tweetAtual._id !== idDoTweet)
+            
+        const tweetAtualizados = this.state.tweets.filter(tweetAtual => tweetAtual._id !== idDoTweet)
 
-                this.setState(
-                    {
-                        tweets: tweetAtualizados
-                    }
-                )
-            })
-        }
+        this.setState({
+            tweets: tweetAtualizados
 
+        })
+    }
 
     render() {
         return (
@@ -133,7 +130,7 @@ class App extends Component {
                         </Widget>
                     </Dashboard>
                 </div>
-            </Fragment >
+            </Fragment>
         );
     }
 }
