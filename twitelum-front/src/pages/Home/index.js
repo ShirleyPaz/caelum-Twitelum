@@ -83,7 +83,7 @@ class App extends Component {
 
     abreModalTweet = (idDoTweet, event) => {
         // pegar o tweet correto no array de tweets
-        const ignoraModal = event.target.closest('.ignoraModal')
+        const ignoraModal = event.target.closest('.ignoraModal') //procura a cadeia inteira buscando esse item como classe ou id
        
         if (!ignoraModal) {
             const tweetAtivo = this.state
