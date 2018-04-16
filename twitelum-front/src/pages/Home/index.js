@@ -3,8 +3,10 @@ import Cabecalho from '../../components/Cabecalho'
 import NavMenu from '../../components/NavMenu'
 import Dashboard from '../../components/Dashboard'
 import Widget from '../../components/Widget'
+import Modal from '../../components/Modal'
 import TrendsArea from '../../components/TrendsArea'
 import Tweet from '../../components/Tweet'
+
 
 class App extends Component {
     constructor() {
@@ -79,15 +81,29 @@ class App extends Component {
         })
     }
 
-    abreModalTweet = (idDoTweet) => {
+    abreModalTweet = (idDoTweet, event) => {
         // pegar o tweet correto no array de tweets
-        const tweetAtivo = this.state
-            .tweets.
-            find(tweetAtual => tweetAtual._id === idDoTweet)
+        const ignoraModal = event.target.closest('.ignoraModal')
+       
+        if (!ignoraModal) {
+            const tweetAtivo = this.state
+                .tweets.
+                find(tweetAtual => tweetAtual._id === idDoTweet)
 
-        this.setState({
-            tweetAtivo: tweetAtivo
-        })
+            this.setState({
+                tweetAtivo: tweetAtivo
+            })
+        }
+    }
+
+    fechaModal = (event) => {
+
+        const isModal = event.target.classList.contains('modal')
+        if (isModal) {
+            this.setState({
+                tweetAtivo: {}
+            })
+        }
     }
 
     render() {
@@ -135,7 +151,7 @@ class App extends Component {
                                         return <Tweet
                                             key={tweet._id}
                                             removeHandler={() => this.removeTweet(tweet._id)}
-                                            handleModal={() => this.abreModalTweet(tweet._id)}
+                                            handleModal={(event) => this.abreModalTweet(tweet._id, event)}
                                             texto={tweet.conteudo}
                                             tweetInfo={tweet}
                                         />
@@ -145,13 +161,17 @@ class App extends Component {
                         </Widget>
                     </Dashboard>
                 </div>
-                {this.state.tweetAtivo._id  &&
-                <Tweet
-                    removeHandler={() => this.removeTweet(this.state.tweetAtivo._id)}
-                    handleModal={() => this.abreModalTweet(this.state.tweetAtivo._id)}
-                    texto={this.state.tweetAtivo.conteudo}
-                    tweetInfo={this.state.tweetAtivo}
-                />}
+
+                <Modal isAberto={this.state.tweetAtivo._id} fechaModal={this.fechaModal}>
+                    <Widget>
+                        <Tweet
+                            removeHandler={() => this.removeTweet(this.state.tweetAtivo._id)}
+                            texto={this.state.tweetAtivo.conteudo || ''}
+                            tweetInfo={this.state.tweetAtivo}
+                        />
+                    </Widget>
+                </Modal>
+
             </Fragment>
         );
     }
