@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from 'react';
+import PropTypes from 'prop-types'
 import Cabecalho from '../../components/Cabecalho'
 import NavMenu from '../../components/NavMenu'
 import Dashboard from '../../components/Dashboard'
@@ -9,6 +10,11 @@ import Tweet from '../../components/Tweet'
 
 
 class App extends Component {
+
+    static contextTypes = {
+        store: PropTypes.object.isRequired
+    }
+
     constructor() {
         super()
         this.state = {
@@ -17,20 +23,27 @@ class App extends Component {
             tweetAtivo: {
                 usuario: {}
             }
+            //     
         }
         this.adicionaTweet = this.adicionaTweet.bind(this)
+    }
+
+    componentWillMount() {
+        this.context.store.subscribe( () => {
+            console.log('Roda sempre que rolar um dispatch')
+            this.setState({
+                tweets: this.context.store.getState()
+            })
+        })
     }
 
     componentDidMount() {
         fetch(`http://localhost:3001/tweets?X-AUTH-TOKEN=${localStorage.getItem('TOKEN')}`)
             .then(response => response.json())
-            .then((tweetsDoServidor => {
-                this.setState(
-                    {
-                        tweets: tweetsDoServidor
-                    }
-                )
-            }))
+            .then((tweetsDoServidor) => {
+                this.context.store.dispatch({ type: "CARREGA_TWEETS", tweets: tweetsDoServidor})
+                // this.setState({ tweets: tweetsDoServidor })
+            })
     }
 
     adicionaTweet(event) {
@@ -69,6 +82,7 @@ class App extends Component {
             }`, {
                 method: 'DELETE',
             })
+            //     
             .then(response => {
                 return response.json()
             })
@@ -86,9 +100,7 @@ class App extends Component {
         const ignoraModal = event.target.closest('.ignoraModal') //procura a cadeia inteira buscando esse item como classe ou id
        
         if (!ignoraModal) {
-            const tweetAtivo = this.state
-                .tweets.
-                find(tweetAtual => tweetAtual._id === idDoTweet)
+            const tweetAtivo = this.state.tweets.find(tweetAtual => tweetAtual._id === idDoTweet)
 
             this.setState({
                 tweetAtivo: tweetAtivo
@@ -176,5 +188,6 @@ class App extends Component {
         );
     }
 }
+
 
 export default App;

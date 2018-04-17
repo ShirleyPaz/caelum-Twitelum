@@ -64,15 +64,15 @@ Tweet.propTypes = {
     removeHandler: PropTypes.func.isRequired,
     texto: PropTypes.string.isRequired,
     tweetInfo: PropTypes.shape({
-        _id: PropTypes.string.isRequired,
+        _id: PropTypes.string,
         likeado: PropTypes.bool,
-        totalLikes: PropTypes.number.isRequired,
+        totalLikes: PropTypes.number,
         removivel: PropTypes.bool,
         usuario: PropTypes.shape({
-            foto: PropTypes.string.isRequired,
-            login: PropTypes.string.isRequired,
-            nome: PropTypes.string.isRequired,
-        }).isRequired
+            foto: PropTypes.string,
+            login: PropTypes.string,
+            nome: PropTypes.string,
+        })
     }).isRequired
 }
 
