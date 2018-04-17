@@ -1,5 +1,4 @@
 import React, { Component, Fragment } from 'react';
-import PropTypes from 'prop-types'
 import Cabecalho from '../../components/Cabecalho'
 import NavMenu from '../../components/NavMenu'
 import Dashboard from '../../components/Dashboard'
@@ -7,6 +6,10 @@ import Widget from '../../components/Widget'
 import Modal from '../../components/Modal'
 import TrendsArea from '../../components/TrendsArea'
 import Tweet from '../../components/Tweet'
+
+import PropTypes from 'prop-types'
+import * as TweetsAPI from '../../apis/TweetsAPI'
+
 
 
 class App extends Component {
@@ -29,8 +32,7 @@ class App extends Component {
     }
 
     componentWillMount() {
-        this.context.store.subscribe( () => {
-            console.log('Roda sempre que rolar um dispatch')
+        this.context.store.subscribe(() => {
             this.setState({
                 tweets: this.context.store.getState()
             })
@@ -38,12 +40,7 @@ class App extends Component {
     }
 
     componentDidMount() {
-        fetch(`http://localhost:3001/tweets?X-AUTH-TOKEN=${localStorage.getItem('TOKEN')}`)
-            .then(response => response.json())
-            .then((tweetsDoServidor) => {
-                this.context.store.dispatch({ type: "CARREGA_TWEETS", tweets: tweetsDoServidor})
-                // this.setState({ tweets: tweetsDoServidor })
-            })
+        this.context.store.dispatch(TweetsAPI.carrega())
     }
 
     adicionaTweet(event) {
@@ -51,27 +48,10 @@ class App extends Component {
 
         //pegar o value do input
         const novoTweet = this.state.novoTweet
+        //manda o texto e o TOKEN     
+        this.context.store.dispatch(TweetsAPI.adiciona(novoTweet))
 
-        //manda o texto e o TOKEN      
-        if (novoTweet) {
-            fetch(`http://localhost:3001/tweets?X-AUTH-TOKEN=${localStorage.getItem('TOKEN')
-                }`, {
-                    method: 'POST',
-                    body: JSON.stringify({ conteudo: novoTweet })
-                })
-                .then(response => {
-                    return response.json()
-                })
-                .then(respostaPronta => {
-                    this.setState(
-                        {
-                            tweets: [respostaPronta, ...this.state.tweets],
-                            novoTweet: ''
-                        }
-                    )
-                    console.log(respostaPronta)
-                })
-        }
+        this.setState({ novoTweet: '' })
     }
 
     removeTweet = (idDoTweet) => {
@@ -98,7 +78,7 @@ class App extends Component {
     abreModalTweet = (idDoTweet, event) => {
         // pegar o tweet correto no array de tweets
         const ignoraModal = event.target.closest('.ignoraModal') //procura a cadeia inteira buscando esse item como classe ou id
-       
+
         if (!ignoraModal) {
             const tweetAtivo = this.state.tweets.find(tweetAtual => tweetAtual._id === idDoTweet)
 
