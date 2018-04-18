@@ -42,6 +42,7 @@ export const remove = (idDoTweet) => {
             })
             .then (respostaPronta => {
                 dispatch({ type: 'REMOVE_TWEET', idDoTweet: idDoTweet })
+                dispatch({ type: 'REMOVE_TWEET_ATIVO', idDoTweet: idDoTweet })
             })
         // const tweetAtualizados = this.state.tweets.filter(tweetAtual => tweetAtual._id !== idDoTweet)
 

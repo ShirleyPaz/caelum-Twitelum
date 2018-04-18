@@ -34,7 +34,8 @@ class App extends Component {
     componentWillMount() {
         this.context.store.subscribe(() => {
             this.setState({
-                tweets: this.context.store.getState()
+                tweets: this.context.store.getState().lista,
+                tweetAtivo: this.context.store.getState().tweetAtivo,
             })
         })
     }
@@ -62,11 +63,10 @@ class App extends Component {
         const ignoraModal = event.target.closest('.ignoraModal') //procura a cadeia inteira buscando esse item como classe ou id
 
         if (!ignoraModal) {
-            const tweetAtivo = this.state.tweets.find(tweetAtual => tweetAtual._id === idDoTweet)
-
-            this.setState({
-                tweetAtivo: tweetAtivo
-            })
+            this.context.store.dispatch({ type: 'ADD_TWEET_ATIVO', idDoTweet })
+            // this.setState({
+            //     tweetAtivo: tweetAtivo
+            // })
         }
     }
 
@@ -74,9 +74,7 @@ class App extends Component {
 
         const isModal = event.target.classList.contains('modal')
         if (isModal) {
-            this.setState({
-                tweetAtivo: {}
-            })
+           this.context.store.dispatch({ type: 'REMOVE_TWEET_ATIVO'})
         }
     }
 

@@ -3,27 +3,53 @@
 import { createStore, applyMiddleware } from 'redux'
 import thunk from 'redux-thunk'
 
-function tweetsReducer(state = [], action = {}) { //state = estada da store que fica sendo atualizado
+function tweetsReducer(state = { lista: [], tweetAtivo: {} }, action = {}) { //state = estada da store que fica sendo atualizado
 
     if (action.type === 'CARREGA_TWEETS') {
-        const novoEstado = action.tweets
-        console.log('novoEstado', novoEstado)
+        const novoEstado = {
+            ...state,
+            lista: action.tweets
+        }
         return novoEstado
     }
 
     if (action.type === 'ADICIONA_TWEET') {
-        const novoEstado = [action.tweet, ...state]
-        console.log('pós adiciona tweet', novoEstado)
+        const novoEstado = {
+            ...state,
+            lista: [action.tweet, ...state.lista]
+        }
+        console.log('adicionado com sucesso', novoEstado)
         return novoEstado
     }
 
     if (action.type === 'REMOVE_TWEET') { // Poderia ser enviado para o componente no qual a ação acontece
-        const novoEstado = state.filter(tweetAtual => tweetAtual._id !== action.idDoTweet) // cria um array novo para todos os itens que retornam true
+
+        const novaListaTweet = state.lista.filter(tweetAtual => tweetAtual._id !== action.idDoTweet) // cria um array novo para todos os itens que retornam true
+
+        const novoEstado = {
+            ...state,
+            lista: novaListaTweet,
+        }
         console.log('removido com sucesso', novoEstado)
         return novoEstado
     }
 
-    return state
+    if (action.type === 'ADD_TWEET_ATIVO') {
+        const tweetAtivo = state.lista.find(tweetAtual => tweetAtual._id === action.idDoTweet)
+        const novoEstado = {
+            ...state,
+            tweetAtivo: tweetAtivo
+        }
+        console.log('tweet adicionado para modal', novoEstado)
+        return novoEstado
+    }
+
+    if (action.type === 'REMOVE_TWEET_ATIVO') {
+        return {
+            ...state,
+            tweetAtivo: {}
+        }
+    }
 }
 
 const store = createStore(
@@ -33,8 +59,8 @@ const store = createStore(
                  Antes o dispatch recebia apenas objetos literais, com type e action. */
 
     )
-)
 
+)
 
 
 export default store
