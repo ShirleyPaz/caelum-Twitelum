@@ -17,7 +17,13 @@ function tweetsReducer(state = [], action = {}) {
         return novoEstado
     }
 
-      
+    if (action.type === 'REMOVE_TWEET') {
+        const novoEstado = state.filter(tweetAtual => tweetAtual._id !== action.idDoTweet)
+        console.log('removido com sucesso', novoEstado)
+        return novoEstado
+    }
+
+
     return state
 }
 

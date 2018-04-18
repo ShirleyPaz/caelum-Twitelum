@@ -45,7 +45,6 @@ class App extends Component {
 
     adicionaTweet(event) {
         event.preventDefault()
-
         //pegar o value do input
         const novoTweet = this.state.novoTweet
         //manda o texto e o TOKEN     
@@ -55,24 +54,7 @@ class App extends Component {
     }
 
     removeTweet = (idDoTweet) => {
-        // Saber o ID do tweet
-        // setState
-
-        fetch(`http://localhost:3001/tweets/${idDoTweet}/?X-AUTH-TOKEN=${localStorage.getItem('TOKEN')
-            }`, {
-                method: 'DELETE',
-            })
-            //     
-            .then(response => {
-                return response.json()
-            })
-
-        const tweetAtualizados = this.state.tweets.filter(tweetAtual => tweetAtual._id !== idDoTweet)
-
-        this.setState({
-            tweets: tweetAtualizados
-
-        })
+        this.context.store.dispatch(TweetsAPI.remove(idDoTweet))        
     }
 
     abreModalTweet = (idDoTweet, event) => {

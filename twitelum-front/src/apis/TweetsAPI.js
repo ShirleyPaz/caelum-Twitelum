@@ -1,30 +1,53 @@
 export const carrega = () => {
 
     return (dispatch) => { //closure
-    console.log('carrega funcionando')
-    fetch(`http://localhost:3001/tweets?X-AUTH-TOKEN=${localStorage.getItem('TOKEN')}`)
-        .then(response => response.json())
-        .then((tweetsDoServidor) => {
-            dispatch({ type: "CARREGA_TWEETS", tweets: tweetsDoServidor })
-        })
+        console.log('carrega funcionando')
+        fetch(`http://localhost:3001/tweets?X-AUTH-TOKEN=${localStorage.getItem('TOKEN')}`)
+            .then(response => response.json())
+            .then((tweetsDoServidor) => {
+                dispatch({ type: "CARREGA_TWEETS", tweets: tweetsDoServidor })
+            })
     }
 }
 
 export const adiciona = (novoTweet) => {
-    return(dispatch) => {
-      
-     if (novoTweet) {
-        fetch(`http://localhost:3001/tweets?X-AUTH-TOKEN=${localStorage.getItem('TOKEN')
+    return (dispatch) => {
+
+        if (novoTweet) {
+            fetch(`http://localhost:3001/tweets?X-AUTH-TOKEN=${localStorage.getItem('TOKEN')
+                }`, {
+                    method: 'POST',
+                    body: JSON.stringify({ conteudo: novoTweet })
+                })
+                .then(response => {
+                    return response.json()
+                })
+                .then((respostaPronta) => {
+                    dispatch({ type: "ADICIONA_TWEET", tweet: respostaPronta })
+
+                })
+        }
+    }
+}
+
+export const remove = (idDoTweet) => {
+    return (dispatch) => {
+        fetch(`http://localhost:3001/tweets/${idDoTweet}/?X-AUTH-TOKEN=${localStorage.getItem('TOKEN')
             }`, {
-                method: 'POST',
-                body: JSON.stringify({ conteudo: novoTweet })
+                method: 'DELETE',
             })
+            //     
             .then(response => {
                 return response.json()
             })
-            .then((respostaPronta) => {
-                dispatch({ type: "ADICIONA_TWEET", tweet: respostaPronta })
-
+            .then (responstaPronta => {
+                dispatch({ type: 'REMOVE_TWEET', idDoTweet: idDoTweet })
             })
+        // const tweetAtualizados = this.state.tweets.filter(tweetAtual => tweetAtual._id !== idDoTweet)
+
+        // this.setState({
+        //     tweets: tweetAtualizados
+
+        // })
     }
-}}
+}
