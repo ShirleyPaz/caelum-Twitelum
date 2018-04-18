@@ -5,7 +5,7 @@ import Dashboard from '../../components/Dashboard'
 import Widget from '../../components/Widget'
 import Modal from '../../components/Modal'
 import TrendsArea from '../../components/TrendsArea'
-import Tweet from '../../components/Tweet'
+import Tweet from '../../containers/TweetPadrao'
 
 import PropTypes from 'prop-types'
 import * as TweetsAPI from '../../apis/TweetsAPI'
@@ -53,9 +53,9 @@ class App extends Component {
         this.setState({ novoTweet: '' })
     }
 
-    removeTweet = (idDoTweet) => {
-        this.context.store.dispatch(TweetsAPI.remove(idDoTweet))        
-    }
+    // removeTweet = (idDoTweet) => {
+    //     this.context.store.dispatch(TweetsAPI.remove(idDoTweet))        
+    // }
 
     abreModalTweet = (idDoTweet, event) => {
         // pegar o tweet correto no array de tweets
@@ -124,7 +124,7 @@ class App extends Component {
                                     (tweet, index) => {
                                         return <Tweet
                                             key={tweet._id}
-                                            removeHandler={() => this.removeTweet(tweet._id)}
+                                            // removeHandler={() => this.removeTweet(tweet._id)}
                                             handleModal={(event) => this.abreModalTweet(tweet._id, event)}
                                             texto={tweet.conteudo}
                                             tweetInfo={tweet}

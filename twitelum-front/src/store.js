@@ -3,7 +3,7 @@
 import { createStore, applyMiddleware } from 'redux'
 import thunk from 'redux-thunk'
 
-function tweetsReducer(state = [], action = {}) {
+function tweetsReducer(state = [], action = {}) { //state = estada da store que fica sendo atualizado
 
     if (action.type === 'CARREGA_TWEETS') {
         const novoEstado = action.tweets
@@ -17,12 +17,11 @@ function tweetsReducer(state = [], action = {}) {
         return novoEstado
     }
 
-    if (action.type === 'REMOVE_TWEET') {
-        const novoEstado = state.filter(tweetAtual => tweetAtual._id !== action.idDoTweet)
+    if (action.type === 'REMOVE_TWEET') { // Poderia ser enviado para o componente no qual a ação acontece
+        const novoEstado = state.filter(tweetAtual => tweetAtual._id !== action.idDoTweet) // cria um array novo para todos os itens que retornam true
         console.log('removido com sucesso', novoEstado)
         return novoEstado
     }
-
 
     return state
 }

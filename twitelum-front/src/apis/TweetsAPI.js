@@ -40,7 +40,7 @@ export const remove = (idDoTweet) => {
             .then(response => {
                 return response.json()
             })
-            .then (responstaPronta => {
+            .then (respostaPronta => {
                 dispatch({ type: 'REMOVE_TWEET', idDoTweet: idDoTweet })
             })
         // const tweetAtualizados = this.state.tweets.filter(tweetAtual => tweetAtual._id !== idDoTweet)
