@@ -34,8 +34,8 @@ class App extends Component {
     componentWillMount() {
         this.context.store.subscribe(() => {
             this.setState({
-                tweets: this.context.store.getState().lista,
-                tweetAtivo: this.context.store.getState().tweetAtivo,
+                tweets: this.context.store.getState().tweets.lista,
+                tweetAtivo: this.context.store.getState().tweets.tweetAtivo,
             })
         })
     }
@@ -74,7 +74,7 @@ class App extends Component {
 
         const isModal = event.target.classList.contains('modal')
         if (isModal) {
-           this.context.store.dispatch({ type: 'REMOVE_TWEET_ATIVO'})
+            this.context.store.dispatch({ type: 'REMOVE_TWEET_ATIVO' })
         }
     }
 
@@ -143,7 +143,12 @@ class App extends Component {
                         />
                     </Widget>
                 </Modal>
-
+                {
+                this.context.store.getState().notificacoes && 
+                <div className='notificacaoMsg'>
+                    {this.context.store.getState().notificacoes}
+                </div>
+                }
             </Fragment>
         );
     }

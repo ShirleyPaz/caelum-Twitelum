@@ -18,13 +18,12 @@ const mapDispatchToProps = (dispatch, props) => {
 
         },
         handleLike: () => {
-            console.log('Likezinho maroto')
             dispatch(TweetAPI.like(props.tweetInfo._id))
         }
     }
 }
 
 
-    const TweetPadraoContainer = connect(null, mapDispatchToProps)(Tweet)
+const TweetPadraoContainer = connect(null, mapDispatchToProps)(Tweet)
 
-    export default TweetPadraoContainer
+export default TweetPadraoContainer

@@ -40,7 +40,7 @@ export const remove = (idDoTweet) => {
             .then(response => {
                 return response.json()
             })
-            .then (respostaPronta => {
+            .then(respostaPronta => {
                 dispatch({ type: 'REMOVE_TWEET', idDoTweet: idDoTweet })
                 dispatch({ type: 'REMOVE_TWEET_ATIVO', idDoTweet: idDoTweet })
             })
@@ -54,8 +54,19 @@ export const remove = (idDoTweet) => {
 }
 
 export const like = (idDoTweet) => {
-    return(dispatch) => {
-        dispatch({ type: 'LIKE', idDoTweet})
+    return (dispatch) => {
+        fetch(`http://localhost:3001/tweets/${idDoTweet}/like?X-AUTH-TOKEN=${localStorage.getItem('TOKEN')
+            }`, {
+                method: 'POST',
+            })
+            //     
+            .then(response => response.json())
+            .then(respostaPronta => {
+                dispatch({ type: 'LIKE', idDoTweet })
+                dispatch({ type: 'ADD_NOTIFICACAO', msg: "Alo Alo Like" })
+                setTimeout(() => {
+                    dispatch({ type: 'REMOVE_NOTIFICACAO'})
+                }, 3000)
+            })
     }
-
 }
