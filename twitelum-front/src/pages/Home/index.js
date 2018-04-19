@@ -144,10 +144,12 @@ class App extends Component {
                     </Widget>
                 </Modal>
                 {
-                this.context.store.getState().notificacoes && 
-                <div className='notificacaoMsg'>
-                    {this.context.store.getState().notificacoes}
-                </div>
+                    this.context.store.getState().notificacoes &&
+                    <div 
+                    className='notificacaoMsg' 
+                    onAnimationEnd={() => this.context.store.dispatch({ type: 'REMOVE_NOTIFICACAO'})}>
+                        {this.context.store.getState().notificacoes}
+                    </div>
                 }
             </Fragment>
         );

@@ -64,9 +64,7 @@ export const like = (idDoTweet) => {
             .then(respostaPronta => {
                 dispatch({ type: 'LIKE', idDoTweet })
                 dispatch({ type: 'ADD_NOTIFICACAO', msg: "Alo Alo Like" })
-                setTimeout(() => {
-                    dispatch({ type: 'REMOVE_NOTIFICACAO'})
-                }, 3000)
+
             })
     }
 }
