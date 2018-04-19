@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import * as TweetAPI from '../apis/TweetsAPI'
 
 // class TweetPadrao extends Component {
-    //    funcaoRemove () {store.dispatch(TweetsAPI.remove())}
+//    funcaoRemove () {store.dispatch(TweetsAPI.remove())}
 //     render() {
 //         return (
 //             <Tweet removeHandle />
@@ -11,15 +11,20 @@ import * as TweetAPI from '../apis/TweetsAPI'
 //     }
 // }
 
-const mapDispatchToProps =  (dispatch, props) => {
+const mapDispatchToProps = (dispatch, props) => {
     return {
         removeHandler: () => {
             dispatch(TweetAPI.remove(props.tweetInfo._id))
 
+        },
+        handleLike: () => {
+            console.log('Likezinho maroto')
+            dispatch(TweetAPI.like(props.tweetInfo._id))
         }
     }
 }
 
-const TweetPadraoContainer = connect( null, mapDispatchToProps)(Tweet)
 
-export default TweetPadraoContainer
+    const TweetPadraoContainer = connect(null, mapDispatchToProps)(Tweet)
+
+    export default TweetPadraoContainer

@@ -50,7 +50,26 @@ function tweetsReducer(state = { lista: [], tweetAtivo: {} }, action = {}) { //s
             tweetAtivo: {}
         }
     }
+
+    if (action.type === 'LIKE') {
+        console.log('antesdolike')
+        const tweetLikeado = state.lista.map(tweetAtual => {
+            if (tweetAtual._id === action.idDoTweet) {
+                let { likeado, totalLikes } = tweetAtual
+                tweetAtual.likeado = !likeado
+                tweetAtual.totalLikes = likeado ? totalLikes - 1 : totalLikes + 1
+
+            }
+            return tweetAtual
+
+        })
+        return {
+            ...state,
+            lista: tweetLikeado
+        }
+    }
 }
+
 
 const store = createStore(
     tweetsReducer,
